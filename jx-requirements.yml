@@ -1,0 +1,59 @@
+autoUpdate:
+  enabled: false
+  schedule: ""
+cluster:
+  clusterName: eyeeast-dev
+  environmentGitOwner: tsmd44
+  gitKind: github
+  gitName: github
+  gitServer: https://github.com
+  namespace: jx
+  project: abtsmd-dev
+  provider: gke
+  vaultSAName: eyeeast-dev-vt
+  zone: asia-northeast1-a
+environments:
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: dev
+gitops: true
+ingress:
+  domain: 34.84.238.102.nip.io
+  externalDNS: false
+  namespaceSubDomain: .jx.
+  tls:
+    email: admin@tsmd.dev
+    enabled: false
+    production: true
+kaniko: true
+secretStorage: vault
+storage:
+  backup:
+    enabled: true
+    url: gs://eyeeast-dev-backup
+  logs:
+    enabled: true
+    url: gs://eyeeast-dev-logs
+  reports:
+    enabled: true
+    url: gs://eyeeast-dev-reports
+  repository:
+    enabled: true
+    url: gs://eyeeast-dev-repository
+terraform: true
+vault:
+  bucket: eyeeast-dev-vault
+  key: eyeeast-dev-crypto-key
+  keyring: eyeeast-dev-keyring
+  serviceAccount: eyeeast-dev-vt
+velero: {}
+versionStream:
+  ref: master
+  url: https://github.com/jenkins-x/jenkins-x-versions.git
+webhook: prow

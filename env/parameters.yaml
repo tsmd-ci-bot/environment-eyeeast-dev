@@ -1,0 +1,10 @@
+adminUser:
+  password: vault:eyeeast-dev/adminUser:password
+  username: admin
+enableDocker: false
+pipelineUser:
+  email: admin@tsmd.dev
+  token: vault:eyeeast-dev/pipelineUser:token
+  username: tsmd-ci-bot
+prow:
+  hmacToken: vault:eyeeast-dev/prow:hmacToken
