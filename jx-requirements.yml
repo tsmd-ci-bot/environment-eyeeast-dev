@@ -10,6 +10,7 @@ cluster:
   namespace: jx
   project: abtsmd-dev
   provider: gke
+  vaultName: eyeeast-dev-vault
   vaultSAName: eyeeast-dev-vt
   zone: asia-northeast1-a
 environments:
@@ -50,10 +51,10 @@ storage:
     url: gs://eyeeast-dev-repository
 terraform: true
 vault:
-  name: eyeeast-dev-vault
   bucket: eyeeast-dev-vault
   key: eyeeast-dev-crypto-key
   keyring: eyeeast-dev-keyring
+  name: eyeeast-dev-vault
   serviceAccount: eyeeast-dev-vt
 velero: {}
 versionStream:
