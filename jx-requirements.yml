@@ -22,9 +22,11 @@ environments:
       enabled: false
       production: false
   key: dev
+  owner: tsmd44
+  repository: environment-eyeeast-dev
 gitops: true
 ingress:
-  domain: 34.84.238.102.nip.io
+  domain: 34.84.53.48.nip.io
   externalDNS: false
   namespaceSubDomain: .jx.
   tls:

@@ -24,6 +24,10 @@ pipelineConfig:
           value: tsmd-ci-bot
         - name: GIT_AUTHOR_EMAIL
           value: admin@tsmd.dev
+        - name: GIT_AUTHOR_NAME
+          value: tsmd-ci-bot
+        - name: GIT_AUTHOR_EMAIL
+          value: admin@tsmd.dev
         stages:
         - name: release
           steps:
