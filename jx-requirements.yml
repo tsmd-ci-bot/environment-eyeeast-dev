@@ -50,6 +50,7 @@ storage:
     url: gs://eyeeast-dev-repository
 terraform: true
 vault:
+  name: eyeeast-dev-vault
   bucket: eyeeast-dev-vault
   key: eyeeast-dev-crypto-key
   keyring: eyeeast-dev-keyring
