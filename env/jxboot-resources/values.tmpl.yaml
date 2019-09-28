@@ -50,6 +50,16 @@ gitops:
     dockerRegistryOrg: ""
 {{- end }}
 
+  staging:
+    repo: "{{ .Environments.staging.repository }}"
+    owner: "{{ .Environments.staging.owner | default .Requirements.cluster.environmentGitOwner }}"
+    server: ""
+
+  production:
+    repo: "{{ .Environments.production.repository }}"
+    owner: "{{ .Environments.production.owner | default .Requirements.cluster.environmentGitOwner }}"
+    server: ""
+
 storage:
   logs:
     url: "{{ .Requirements.storage.logs.url }}"

@@ -19,12 +19,34 @@ environments:
     externalDNS: false
     namespaceSubDomain: ""
     tls:
-      email: ""
+      email: admin@tsmd.dev
       enabled: false
-      production: false
+      production: true
   key: dev
   owner: tsmd44
   repository: environment-eyeeast-dev
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: admin@tsmd.dev
+      enabled: false
+      production: true
+  key: staging
+  owner: tsmd44
+  repository: environment-eyeeast-staging
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: admin@tsmd.dev
+      enabled: false
+      production: true
+  key: production
+  owner: tsmd44
+  repository: environment-eyeeast-production
 gitops: true
 ingress:
   domain: 34.84.53.48.nip.io
