@@ -1,0 +1,146 @@
+plank:
+  allow_cancellations: true
+  job_url_prefix: "http://deck.jx.34.84.53.48.nip.io/view/gcs"
+  job_url_template: "http://deck.jx.34.84.53.48.nip.io/view/gcs/eyeeast-dev-logs/jenkins-x/logs/{{.Spec.Refs.Repo}}/{{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}}/{{.Spec.Job}}/{{.Status.BuildID}}"
+  report_template: "[Full PR test history](http://deck.jx.34.84.53.48.nip.io/pr-history?org={{.Spec.Refs.Org}}&repo={{.Spec.Refs.Repo}}&pr={{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}})"
+
+  default_decoration_config:
+    timeout: 7200000000000 # 2h
+    grace_period: 15000000000 # 15s
+    # utility_images:
+    #   clonerefs: "quay.io/pusher/clonerefs:v20190401-6a7e3ff"
+    #   initupload: "gcr.io/k8s-prow/initupload:v20190726-3b3e19a13"
+    #   entrypoint: "gcr.io/k8s-prow/entrypoint:v20190726-3b3e19a13"
+    #   sidecar: "gcr.io/k8s-prow/sidecar:v20190726-3b3e19a13"
+    gcs_configuration:
+      bucket: "eyeeast-dev-logs"
+      path_strategy: "explicit"
+    gcs_credentials_secret: "eyeeast-dev-vault-gcp-sa"
+
+sinker:
+  resync_period: 1h
+  max_prowjob_age: 48h
+  max_pod_age: 1h
+
+deck:
+  # branding:
+  #   logo: "/static/extensions/logo.svg"
+  #   favicon: "extensions/favicon.ico"
+  #   header_color: "#300D4F"
+  spyglass:
+    size_limit: 500000000
+    lenses:
+    - lens:
+        name: metadata
+      required_files:
+      - started.json
+      optional_files:
+      - finished.json
+    - lens:
+        name: buildlog
+        config:
+          highlight_regexes:
+          - timed out
+          - 'ERROR:'
+          - (\s|^)(FAIL|Failure \[)\b
+          - (\s|^)panic\b
+          - ^E\d{4} \d\d:\d\d:\d\d\.\d\d\d]
+      required_files:
+      - build-log.txt
+    - lens:
+        name: junit
+      required_files:
+      - artifacts/junit.*\.xml
+  rerun_auth_config:
+    authorized_users:
+      - tsmd44
+      - tsmd45
+
+prowjob_namespace: jx
+pod_namespace: jx
+log_level: debug
+
+# github_reporter:
+#   job_types_to_report:
+#   - presubmit
+#   - postsubmit
+
+tide:
+  context_options:
+    from-branch-protection: true
+    required-if-present-contexts: null
+    skip-unknown-contexts: false
+  merge_method:
+    tsmd44/environment-eyeeast-dev: merge
+    tsmd44/eyeeast: merge
+  queries:
+  - labels:
+    - approved
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/work-in-progress
+    - needs-ok-to-test
+    - needs-rebase
+    repos:
+    - tsmd44/environment-eyeeast-dev
+    - tsmd44/eyeeast
+  - labels:
+    - updatebot
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/work-in-progress
+    - needs-ok-to-test
+    - needs-rebase
+    repos:
+    - tsmd44/eyeeast
+  target_url: http://deck.jx.34.84.53.48.nip.io
+
+owners_dir_blacklist:
+  default: null
+  repos: null
+
+branch-protection:
+  orgs:
+    tsmd44:
+      repos:
+        environment-eyeeast-dev:
+          required_status_checks:
+            contexts:
+            - promotion-build
+        eyeeast:
+          required_status_checks:
+            contexts:
+            - pr-build
+  protect-tested-repos: true
+
+presubmits:
+  tsmd44/environment-eyeeast-dev:
+  - agent: tekton
+    always_run: true
+    context: promotion-build
+    name: promotion-build
+    rerun_command: /test this
+    trigger: (?m)^/test( all| this),?(\s+|$)
+  tsmd44/eyeeast:
+  - agent: tekton
+    always_run: false
+    context: pr-build
+    name: pr-build
+    rerun_command: /test this
+    trigger: (?m)^/test( all| this),?(\s+|$)
+
+postsubmits:
+  tsmd44/environment-eyeeast-dev:
+  - agent: tekton
+    branches:
+    - master
+    context: ""
+    name: promotion
+  tsmd44/eyeeast:
+  - agent: tekton
+    branches:
+    - master
+    context: ""
+    name: release

@@ -1,22 +1,100 @@
-{{- if eq .Requirements.webhook "prow" }}
 enabled: true
-{{- else }}
-enabled: false
-{{- end }}
-
 hmacToken: "{{ .Parameters.prow.hmacToken }}"
 oauthToken: "{{ .Parameters.pipelineUser.token }}"
 user: "{{ .Parameters.pipelineUser.username }}"
+tillerNamespace: ""
 
-buildnum:
-  enabled: false
+deck:
+  replicaCount: 1
+  datadog:
+    enabled: false
+
 pipelinerunner:
-  enabled: "true"
+  enabled: true
   args:
   - controller
   - pipelinerunner
   - --use-meta-pipeline=false
-tillerNamespace: ""
+  resources:
+    limits:
+      cpu: 200m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  env:
+    GIT_AUTHOR_NAME: "{{ .Parameters.pipelineUser.username }}"
+    GIT_AUTHOR_EMAIL: "{{ .Parameters.pipelineUser.email }}"
+  datadog:
+    enabled: false
+
+buildnum:
+  enabled: false
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  datadog:
+    enabled: true
+
+crier:
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  datadog:
+    enabled: false
+
+branchprotector:
+  enabled: false
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  datadog:
+    enabled: false
+
+hook:
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  datadog:
+    enabled: false
+
+horologium:
+  datadog:
+    enabled: false
+
+plank:
+  datadog:
+    enabled: false
+
+build:
+  datadog:
+    enabled: false
+
+pipeline:
+  datadog:
+    enabled: false
 
 sinker:
-  replicaCount: 0
+  datadog:
+    enabled: false
+
+tide:
+  datadog:
+    enabled: false
