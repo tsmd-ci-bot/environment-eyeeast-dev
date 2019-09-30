@@ -1,4 +1,5 @@
 enabled: true
+
 hmacToken: "{{ .Parameters.prow.hmacToken }}"
 oauthToken: "{{ .Parameters.pipelineUser.token }}"
 user: "{{ .Parameters.pipelineUser.username }}"
@@ -8,6 +9,20 @@ deck:
   replicaCount: 1
   datadog:
     enabled: false
+
+buildnum:
+  enabled: false
+
+tillerNamespace: ""
+
+deck:
+  replicaCount: 1
+  datadog:
+    enabled: false
+  args:
+    - --spyglass
+    - --hook-url=http://hook/plugin-help
+    - --tide-url=http://tide
 
 pipelinerunner:
   enabled: true
@@ -92,9 +107,4 @@ pipeline:
     enabled: false
 
 sinker:
-  datadog:
-    enabled: false
-
-tide:
-  datadog:
-    enabled: false
+  replicaCount: 1
