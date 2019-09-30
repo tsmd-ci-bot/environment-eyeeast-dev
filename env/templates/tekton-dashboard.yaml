@@ -325,4 +325,4 @@ spec:
       paths:
       - backend:
           serviceName: tekton-dashboard
-          servicePort: 80
+          servicePort: 9097
