@@ -9,16 +9,6 @@ deck:
   replicaCount: 1
   datadog:
     enabled: false
-
-buildnum:
-  enabled: false
-
-tillerNamespace: ""
-
-deck:
-  replicaCount: 1
-  datadog:
-    enabled: false
   args:
     - --spyglass
     - --hook-url=http://hook/plugin-help

@@ -1,61 +1,68 @@
-approve:
-- lgtm_acts_as_approve: true
-  repos:
-  - tsmd44/environment-eyeeast-dev
-  require_self_approval: true
-- lgtm_acts_as_approve: true
-  repos:
-  - tsmd44/eyeeast
-  require_self_approval: true
-blunderbuss: {}
-cat: {}
-cherry_pick_unapproved: {}
-config_updater: {}
-heart: {}
-owners: {}
-plugins:
-  tsmd44/environment-eyeeast-dev:
-  - config-updater
-  - approve
-  - assign
-  - blunderbuss
-  - help
-  - hold
-  - lgtm
-  - lifecycle
-  - size
-  - trigger
-  - wip
-  - heart
-  - cat
-  - override
-  - dog
-  - pony
-  tsmd44/eyeeast:
-  - approve
-  - assign
-  - blunderbuss
-  - help
-  - hold
-  - lgtm
-  - lifecycle
-  - override
-  - size
-  - trigger
-  - wip
-  - heart
-  - cat
-  - dog
-  - pony
-requiresig: {}
-sigmention: {}
-slack: {}
-triggers:
-- repos:
-  - tsmd44/environment-eyeeast-dev
-  trusted_org: tsmd44
-- repos:
-  - tsmd44/eyeeast
-  trusted_org: tsmd44
-welcome:
-- message_template: Welcome
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: plugins
+  namespace: jx
+data:
+  plugins.yaml: |
+    approve:
+    - lgtm_acts_as_approve: true
+      repos:
+      - tsmd44/eyeeast
+      require_self_approval: true
+    - lgtm_acts_as_approve: true
+      repos:
+      - tsmd44/environment-eyeeast-dev
+      require_self_approval: true
+    blunderbuss: {}
+    cat: {}
+    cherry_pick_unapproved: {}
+    config_updater: {}
+    heart: {}
+    owners: {}
+    plugins:
+      tsmd44/environment-eyeeast-dev:
+      - config-updater
+      - approve
+      - assign
+      - blunderbuss
+      - help
+      - hold
+      - lgtm
+      - lifecycle
+      - size
+      - trigger
+      - wip
+      - heart
+      - cat
+      - override
+      - dog
+      - pony
+      tsmd44/eyeeast:
+      - approve
+      - assign
+      - blunderbuss
+      - help
+      - hold
+      - lgtm
+      - lifecycle
+      - override
+      - size
+      - trigger
+      - wip
+      - heart
+      - cat
+      - dog
+      - pony
+    requiresig: {}
+    sigmention: {}
+    slack: {}
+    triggers:
+    - repos:
+      - tsmd44/eyeeast
+      trusted_org: tsmd44
+    - repos:
+      - tsmd44/environment-eyeeast-dev
+      trusted_org: tsmd44
+    welcome:
+    - message_template: Welcome
