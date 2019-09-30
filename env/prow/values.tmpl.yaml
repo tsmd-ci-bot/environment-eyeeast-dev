@@ -1,8 +1,4 @@
-{{- if eq .Requirements.webhook "prow" }}
 enabled: true
-{{- else }}
-enabled: false
-{{- end }}
 
 hmacToken: "{{ .Parameters.prow.hmacToken }}"
 oauthToken: "{{ .Parameters.pipelineUser.token }}"
@@ -10,6 +6,18 @@ user: "{{ .Parameters.pipelineUser.username }}"
 
 buildnum:
   enabled: false
+
+tillerNamespace: ""
+
+deck:
+  replicaCount: 1
+  datadog:
+    enabled: false
+  args:
+    - --spyglass
+    - --hook-url=http://hook/plugin-help
+    - --tide-url=http://tide
+
 pipelinerunner:
   enabled: "true"
   args:
@@ -19,4 +27,4 @@ pipelinerunner:
 tillerNamespace: ""
 
 sinker:
-  replicaCount: 0
+  replicaCount: 1

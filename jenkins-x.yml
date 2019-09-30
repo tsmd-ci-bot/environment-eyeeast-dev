@@ -194,6 +194,15 @@ pipelineConfig:
             dir: /workspace/source/prowConfig
             name: apply-pipeline-schedulers
           - args:
+            - apply
+            - -f
+            - config.yaml
+            - -f
+            - plugins.yaml
+            command: kubectl
+            dir: /workspace/source/prowConfig
+            name: apply-prow-config
+          - args:
             - update
             - webhooks
             - --verbose
