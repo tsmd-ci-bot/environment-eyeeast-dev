@@ -8,8 +8,8 @@ data:
     plank:
       allow_cancellations: true
       job_url_prefix: "http://deck.jx.34.84.53.48.nip.io/view/gcs"
-      job_url_template: "http://deck.jx.34.84.53.48.nip.io/view/gcs/eyeeast-dev-logs/jenkins-x/logs/{{.Spec.Refs.Repo}}/{{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}}/{{.Spec.Job}}/{{.Status.BuildID}}"
-      report_template: "[Full PR test history](http://deck.jx.34.84.53.48.nip.io/pr-history?org={{.Spec.Refs.Org}}&repo={{.Spec.Refs.Repo}}&pr={{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}})"
+      job_url_template: "http://deck.jx.34.84.53.48.nip.io/view/gcs/"
+      report_template: "[Full PR test history](http://deck.jx.34.84.53.48.nip.io/pr-history?org=&repo=&pr=)"
 
       default_decoration_config:
         timeout: 7200000000000 # 2h
